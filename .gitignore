@@ -1,0 +1,25 @@
+# Private secrets and environment files
+.streamlit/secrets.toml
+.streamlit/secrets.toml.*
+.env
+.env.*
+
+# Python-generated and local runtime files
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.log
+
+# Private course and working material
+AGENTS.md
+Sources/
+Notes/
+Drafts/
+Outputs/
+Archive/
+Assets/
+Screenshots/
+
+# Internal validation fixtures not selected for publication
+data/test_cases/
