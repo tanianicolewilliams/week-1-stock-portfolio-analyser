@@ -177,6 +177,17 @@ st.set_page_config(
     layout="wide",
 )
 
+st.markdown(
+    """
+    <style>
+        [data-testid="stAppViewContainer"] .block-container {
+            padding-top: 1.75rem;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 st.title("Stock Portfolio Analyser")
 st.write(
     "Upload your transaction history to see what you own, evaluate buying and "
@@ -233,8 +244,16 @@ with data_upload_tab:
 
     with st.expander("Required CSV format"):
         st.write("Your CSV must include these five column headings:")
-        st.code(",".join(REQUIRED_COLUMNS), language=None)
-        st.caption("The column names must match the headings shown above.")
+        displayed_columns = [
+            "transaction_type*" if column == "transaction_type" else column
+            for column in REQUIRED_COLUMNS
+        ]
+        st.code(",".join(displayed_columns), language=None)
+        st.caption(r"\* transaction_type - Buy or Sell (enter BUY or SELL).")
+        st.caption(
+            "The asterisk is an explanation only. In your CSV, keep the actual "
+            "column heading as transaction_type without the asterisk."
+        )
 
     uploaded_file = st.file_uploader(
         "Upload your portfolio CSV file",
@@ -1359,3 +1378,4 @@ with ai_analyst_tab:
 
                 with st.expander("Verified portfolio facts used by the AI"):
                     show_verified_ai_fallback()
+
